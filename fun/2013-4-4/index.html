@@ -1,0 +1,1084 @@
+
+<!DOCTYPE html>
+
+<!-- /**
+	Solidaire | Responsive one page Creative Template
+ 	Copyright (c) 2012, Subramanian 
+
+	Author: Subramanian
+    Profile: themeforest.net/user/FMedia/
+	
+    Version: 1.0.0
+	Release Date: 20 July 2012
+**/ -->	
+
+    <html lang="en"> 
+    
+    <head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>Zaks|北语信科吃喝玩乐组</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== --> 
+  
+  <!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+
+	<!-- Favicons
+	================================================== -->
+	<!--link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"-->
+  	
+    <!-- Included CSS files 
+	================================================== -->
+    
+  	<link rel="stylesheet" type="text/css"  href="css/main.min.css">
+	<link rel="stylesheet" type="text/css"  href="css/base.min.css">
+    <link rel="stylesheet" type="text/css"  href="css/color.css">
+	<link rel="stylesheet" type="text/css"  href="css/skeleton.min.css">
+	<link rel="stylesheet" type="text/css"  href="css/jquery.fancybox-1.3.4.min.css" media="screen" />
+    <link rel="stylesheet" type="text/css"  href="css/flexslider.min.css" media="screen" />
+  	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,300italic,400italic,600italic">  
+ 
+
+    <!-- Included javascript files 
+	================================================== -->
+    
+    
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="js/custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery.vegas.min.js" ></script>   
+	<script type="text/javascript" src="js/jquery.fancybox-1.3.4.min.js"></script>  
+    <script type="text/javascript" src="js/jquery.isotope.min.js" ></script>  
+    <script type="text/javascript" src="js/jquery.flexslider.min.js"></script>
+    <script type="text/javascript" src="js/main-fm.min.js"></script>  
+
+    <script>
+	
+		/* Google font load checking */
+
+		var googleFontLoad = false;
+		/*googleFontLoad = true;	*/
+			google.load("webfont", "1");			
+		google.setOnLoadCallback(function() {
+		WebFont.load({
+			google: {
+				families: [ 'Open+Sans']
+			}});				  
+			googleFontLoad = true;				  
+		});			
+		
+		
+		/* Site Main plug-in initilize */
+		
+		jQuery(function($){
+			$("body").mainFm({
+				/*	
+				Set page background for each page. Just add src(Desktop size image) and src_small(Mobile size image) variables. 
+				Add those variables as per number of pages, If you need to remove the page background, just remove the src value and leave it blank 
+				[Ex: src : '', src_small : '']
+				 */
+				
+				pageBackground 		: [	{ src : '', src_small : ''},
+										{ src : '', src_small : ''}
+							
+											],
+
+				/* Set background overlay patter */							
+				backgroundOverlay 	: 'images/background_overlay.png',
+				
+				/* Set the opening page. 
+				leave it blank value if you need to show the home page as a opening page*/
+				homePage : "",
+				
+				/* set pageHolder height, if you need to set all the page height in liquid and not align to center,
+				 just set value "100%" to the below 2 varaibles */	
+				pageHolderHeight_desktop : 420,
+				pageHolderHeight_ipad : 380,
+				
+				/* Full screen gallery options for autoplay and slideshow delay time*/
+				galleryAutoplay : "true",
+				gallerySlideshowDelay : 1.5
+				
+			});
+		});
+
+
+		$(document).ready(function(){
+			
+			/* Initialize the fancybox plug-in */
+			var fancy_Obj = $("a[rel=example_group]");
+			fancy_Obj.fancybox({
+				'transitionIn'		: 'elastic',
+				'transitionOut'		: 'elastic',
+
+				'overlayColor'		: '#fff',
+				'padding' 			: 0,
+				'margin' 			: 0,
+				'overlayOpacity'	:.75
+				
+			});	
+			
+			// Remove title tag, so that the title text doesn't show one tooltip when mouse hover the thumbnail
+			fancy_Obj.each(function(){
+				$(this).attr(('data-title'),$(this).find(".img_text").html());
+				if($(this).attr('title')){
+					$($(this).find(('.img_text')).html(String('<span class="img_txt_hold">'+$(this).attr('title')))+'</span>');
+				}
+				$(this).attr('title', '');
+			})		
+			
+			
+			
+			/* Hook up the FlexSlider */
+			$('.flexslider').flexslider({
+         		 slideshow: true,
+				 slideshowSpeed: 5000
+    		});
+			
+			
+			/* Remove google map. This map will add when page display */
+			$(".page").find('#mapWrapper').each(function(){
+					$(this).data('map', $(this).children(':first-child'));
+					if(!$.browser.msie){
+						$(this).children(':first-child').remove();
+					}
+			});
+			
+			
+			/* Initialize portfolio - isotope */
+			$(function(){
+			  
+			  var $container = $('#portfolio_container_1');
+			  var $optionSets = $('#options .option-set'),
+				  $optionLinks = $optionSets.find('a');
+		
+			  $optionLinks.click(function(){
+				var $this = $(this);
+				
+				// don't proceed if already selected
+				if ( $this.hasClass('selected') ) {
+				  return false;
+				}
+				var $optionSet = $this.parents('.option-set');
+				$optionSet.find('.selected').removeClass('selected');
+				$this.addClass('selected');
+		  
+				// make option object dynamically, i.e. { filter: '.my-filter-class' }
+				   var options = {},
+					  key = $optionSet.attr('data-option-key'),
+					  value = $this.attr('data-option-value');
+				  // parse 'false' as false boolean
+				  value = value === 'false' ? false : value;
+				  options[ key ] = value;
+				  if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
+					// changes in layout modes need extra logic
+					changeLayoutMode( $this, options )
+				  } else {
+					// otherwise, apply new options
+					$container.isotope( options );
+				  }
+				
+				return false;
+			  });
+			  
+			});
+
+			
+			// Email submit action			
+			$("#email_submit").click(function() { 
+									
+				$('#reply_message').removeClass();
+				$('#reply_message').html('')
+				var regEx = "";	 
+								
+				// validate Name				
+				var name = $("input#name").val();  
+				regEx=/^[A-Za-z .'-]+$/; 
+				if (name == "" || name == "Name"  || !regEx.test(name)) { 
+					$("input#name").val(''); 
+					$("input#name").focus();  
+					return false;  
+				}
+				
+				// validate Email						  
+				var email = $("input#email").val();  
+				regEx=/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;											
+				if (email == "" || email == "Email" || !regEx.test(email)) { 
+					$("input#email").val(''); 
+					$("input#email").focus();  
+					return false;  
+				}  
+				
+				// validate comment			
+				var comments = $("textarea#comments").val(); 
+				if (comments == "" || comments == "Comments..." || comments.length < 2) { 
+					$("textarea#comments").val(''); 
+					$("textarea#comments").focus();  
+					return false;  
+				}  
+									
+				var dataString = 'name='+ $("input#name").val() + '&email=' + $("input#email").val() + '&comments=' + $("textarea#comments").val();									
+				$('#reply_message').addClass('email_loading');
+				
+				// Send form data to mailer.php 
+				$.ajax({
+					type: "POST",
+					url: "mailer.php",
+					data: dataString,
+					success: function() {
+						$('#reply_message').removeClass('email_loading');
+						$('#reply_message').addClass('list3');
+						$('#reply_message').html("Mail send sucessfully")
+						.hide()
+						.fadeIn(1500);
+							}
+						});
+				return false;
+				
+			});
+				
+		});
+
+	
+	</script>
+    
+    <script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-33843149-1']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	</script>
+    
+</head>
+<body >
+
+<!--<div id="tst" style="position:absolute; top:0; left:0; width:25px; color:#FFF; background-color:#066; z-index:120"> a </div>-->
+
+<!--
+Site main frame begin
+Note: Don't edit main frame, except comment area
+-->
+
+
+<div class="mainContainer" >
+
+    <div class="header" >
+    	<div class="container headerContent" >
+        
+        	<div class="nav" >
+            	<div id="mobile_nav"> <span>SELECT PAGE </span> </div>
+                <ul>
+                	<!--  Add require site page navigation -->                    
+                    <li><a href="#home"><span>HOME</span></a></li> 
+                    <!-- <li><a href="#aboutus"><span>ABOUT US</span></a></li> -->
+                    <!-- <li><a href="#portfolio"><span>PORTFOLIO</span></a></li>-->
+                    <li><a href="#fullscreen_gallery"><span>gallery</span></a></li>
+                    <!--<li><a href="#slideshow"><span>SLIDESHOW</span></a></li>-->
+                    <!--<li><a href="#blog"><span>Blog</span></a></li>-->
+                    <!--<li><a href="#features"><span>FEATURES</span></a></li>-->
+                    <!-- <li><a href="#contactus"> <span class="last">CONTACT US</span></a></li>-->                                      
+                </ul>
+
+             </div>
+              
+             <div class="topContact" >
+              	<span class="alignRight">
+                    <!--  Add phone number/email here -->
+                    <h6><span class="list1">王星友:189-1408-5204</span></h6>
+                </span>
+             </div>
+             
+        </div>
+	</div>
+ 
+ 
+	<div class="contentWarp container"  >
+            <div class="logo" >
+                <!-- Place your logo here. data-src-small use to add logo for mobile device -->
+				<!-- <a href="#home"><img src="images/logo.png" data-src-small="images/logo_s.png" alt="logo text"></a>
+				-->
+      		</div>
+             
+            <div class="sixteen pageHolder" >
+                <!-- page content load here, don't place any content inside this tag -->
+            </div> 
+	</div>
+    
+ 	<div style="position:relative; height:20px; visibility:hidden"></div>
+
+  	<div class="push" ></div>
+  
+</div>
+
+
+<div class="footer" >
+	<div class="container " >
+    	
+        	<!-- Place your copyright text -->
+        	<div class="three columns"><h6 class="bottomText">Copyright 2013吃喝玩乐组</h6></div>
+            <!-- Address -->
+            <div class="five columns"><h6 class="bottomText">北语信科吃喝玩乐组</h6></div>
+            <!-- Email -->
+            <div class="three columns"><h6 class="bottomText"><span class="list2">ultimate010@gmail.com</span></h6></div>   
+            <!-- Social network web page link  -->
+            <div class="four  columns offset-by-one" >
+                <ul class="social_bookmarks noMargin">                 
+                  <!--
+                  <li class="twitter noMargin"><a >Follow us on Twitter</a></li>
+                  <li class="facebook noMargin"><a >Join our Facebook Group</a></li>
+                  <li class="gplus noMargin"><a >Join me on Google Plus</a></li>
+                  <li class="linkedin noMargin"><a >Add me on Linkedin</a></li>
+                  <li class="rss noMargin"><a >RSS</a></li>
+                  -->
+                </ul>
+            </div>
+        
+     </div>
+</div>
+
+
+<!-- End site main frame -->
+
+
+<!-- 
+Begin Page content
+ 
+Note: mobile_spacing class is used to add spacing arround the content in mobile device not in desktop,
+if you remove the mobile_spacing class, the layout design doesn't effect in desktop it only effect in mobile device
+
+If you need to show the page content on full height (liquid height), just add the attribute data-height-fixed="false" in page class div tag
+ -->
+  
+
+
+<!-- Gallery page -->
+                
+<div class="page" data-id="fullscreen_gallery" >
+
+    
+    <div class="pgContent" >
+      
+    	 <div class="add_scroll full_size" >
+        <!-- Below content are placed inside the Scrollbar -->
+        
+        <div class="fifteen columns alpha" >
+                <div class="mobile_spacing" >
+                
+                <!-- 
+                	The fs_gallery class is used to identify this gallery to main plugin if you need to add more than one gallery
+                	just copy and past the below div to another page that's all.
+                -->
+                
+                <div class="fs_gallery_wrap fs_gallery" >
+                	<div class="fs_thumbs">
+                    
+                    	<!-- 
+                        	Each fsThumb div contain large image, thumbnail image, and animated text
+                        	The data-src attribute used to load High resolution image for desktop 
+                            The data-src-small attribute used to load Low resolution image for mobile device
+                            Below the fsThumb div the thumbnail image and caption text is added
+                         -->
+                         
+                        
+<div class="fsThumb" data-src="./bg/images/IMG_0486.jpg" data-src-small="./bg/images/IMG_0486.jpg" >
+		<img  src="./sm/images/IMG_0486.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">出发去意大利餐厅吃饭</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 李铭 杨春 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0487.jpg" data-src-small="./bg/images/IMG_0487.jpg" >
+		<img  src="./sm/images/IMG_0487.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">出发去意大利餐厅吃饭</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 李铭 杨春 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0489.jpg" data-src-small="./bg/images/IMG_0489.jpg" >
+		<img  src="./sm/images/IMG_0489.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">游戏惩罚</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0492.jpg" data-src-small="./bg/images/IMG_0492.jpg" >
+		<img  src="./sm/images/IMG_0492.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">游戏惩罚</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0493.jpg" data-src-small="./bg/images/IMG_0493.jpg" >
+		<img  src="./sm/images/IMG_0493.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">游戏惩罚</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0494.jpg" data-src-small="./bg/images/IMG_0494.jpg" >
+		<img  src="./sm/images/IMG_0494.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">游戏惩罚</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0495.jpg" data-src-small="./bg/images/IMG_0495.jpg" >
+		<img  src="./sm/images/IMG_0495.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">游戏惩罚</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0502.jpg" data-src-small="./bg/images/IMG_0502.jpg" >
+		<img  src="./sm/images/IMG_0502.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">鱼豆吉吃饭</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US(EXCEPT ZAKS)</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0503.jpg" data-src-small="./bg/images/IMG_0503.jpg" >
+		<img  src="./sm/images/IMG_0503.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">鱼豆吉吃饭饭</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US(EXCEPT ZAKS)</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0504.jpg" data-src-small="./bg/images/IMG_0504.jpg" >
+		<img  src="./sm/images/IMG_0504.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">鱼豆吉吃饭饭</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US(EXCEPT ZAKS)</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0505.jpg" data-src-small="./bg/images/IMG_0505.jpg" >
+		<img  src="./sm/images/IMG_0505.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">鱼豆吉吃饭饭</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@ALL OF US</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0506.jpg" data-src-small="./bg/images/IMG_0506.jpg" >
+		<img  src="./sm/images/IMG_0506.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">海淀公园放风筝</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈佳莉 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0507.jpg" data-src-small="./bg/images/IMG_0507.jpg" >
+		<img  src="./sm/images/IMG_0507.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">海淀公园放风筝</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@李铭 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0508.jpg" data-src-small="./bg/images/IMG_0508.jpg" >
+		<img  src="./sm/images/IMG_0508.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">海淀公园放风筝</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈佳莉 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0509.jpg" data-src-small="./bg/images/IMG_0509.jpg" >
+		<img  src="./sm/images/IMG_0509.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">打酱油的飞机</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0510.jpg" data-src-small="./bg/images/IMG_0510.jpg" >
+		<img  src="./sm/images/IMG_0510.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">打酱油的飞机</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0511.jpg" data-src-small="./bg/images/IMG_0511.jpg" >
+		<img  src="./sm/images/IMG_0511.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">打酱油的飞机</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0512.jpg" data-src-small="./bg/images/IMG_0512.jpg" >
+		<img  src="./sm/images/IMG_0512.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">打酱油的飞机</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@路人</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0513.jpg" data-src-small="./bg/images/IMG_0513.jpg" >
+		<img  src="./sm/images/IMG_0513.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">打酱油的飞机</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0514.jpg" data-src-small="./bg/images/IMG_0514.jpg" >
+		<img  src="./sm/images/IMG_0514.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">骑车北大西门电玩</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 & ...</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0515.jpg" data-src-small="./bg/images/IMG_0515.jpg" >
+		<img  src="./sm/images/IMG_0515.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">骑车北大西门电玩</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 & ...</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0516.jpg" data-src-small="./bg/images/IMG_0516.jpg" >
+		<img  src="./sm/images/IMG_0516.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">骑车北大西门电玩</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 & ...</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0519.jpg" data-src-small="./bg/images/IMG_0519.jpg" >
+		<img  src="./sm/images/IMG_0519.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">打电动</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 魏立勇</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0520.jpg" data-src-small="./bg/images/IMG_0520.jpg" >
+		<img  src="./sm/images/IMG_0520.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">打电动</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 魏立勇</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0525.jpg" data-src-small="./bg/images/IMG_0525.jpg" >
+		<img  src="./sm/images/IMG_0525.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0527.jpg" data-src-small="./bg/images/IMG_0527.jpg" >
+		<img  src="./sm/images/IMG_0527.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0528.jpg" data-src-small="./bg/images/IMG_0528.jpg" >
+		<img  src="./sm/images/IMG_0528.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0529.jpg" data-src-small="./bg/images/IMG_0529.jpg" >
+		<img  src="./sm/images/IMG_0529.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈佳莉 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0531.jpg" data-src-small="./bg/images/IMG_0531.jpg" >
+		<img  src="./sm/images/IMG_0531.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0532.jpg" data-src-small="./bg/images/IMG_0532.jpg" >
+		<img  src="./sm/images/IMG_0532.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 吴嘉伟</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0533.jpg" data-src-small="./bg/images/IMG_0533.jpg" >
+		<img  src="./sm/images/IMG_0533.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 学妹</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0535.jpg" data-src-small="./bg/images/IMG_0535.jpg" >
+		<img  src="./sm/images/IMG_0535.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 小郭 胡梦露</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0536.jpg" data-src-small="./bg/images/IMG_0536.jpg" >
+		<img  src="./sm/images/IMG_0536.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 小郭 胡梦露</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0537.jpg" data-src-small="./bg/images/IMG_0537.jpg" >
+		<img  src="./sm/images/IMG_0537.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 张燕 陈佳莉</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0538.jpg" data-src-small="./bg/images/IMG_0538.jpg" >
+		<img  src="./sm/images/IMG_0538.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 张燕 陈佳莉</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0539.jpg" data-src-small="./bg/images/IMG_0539.jpg" >
+		<img  src="./sm/images/IMG_0539.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1>@王臻 张燕 陈佳莉</div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0540.jpg" data-src-small="./bg/images/IMG_0540.jpg" >
+		<img  src="./sm/images/IMG_0540.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 张燕 陈佳莉</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0541.jpg" data-src-small="./bg/images/IMG_0541.jpg" >
+		<img  src="./sm/images/IMG_0541.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 李铭 杨春 张燕 & ...</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0542.jpg" data-src-small="./bg/images/IMG_0542.jpg" >
+		<img  src="./sm/images/IMG_0542.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 李铭 杨春 张燕 & ...</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0545.jpg" data-src-small="./bg/images/IMG_0545.jpg" >
+		<img  src="./sm/images/IMG_0545.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 李铭 杨春 张燕 & ...</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0546.jpg" data-src-small="./bg/images/IMG_0546.jpg" >
+		<img  src="./sm/images/IMG_0546.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow"></h1>面...</div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 魏立勇 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0547.jpg" data-src-small="./bg/images/IMG_0547.jpg" >
+		<img  src="./sm/images/IMG_0547.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0548.jpg" data-src-small="./bg/images/IMG_0548.jpg" >
+		<img  src="./sm/images/IMG_0548.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0549.jpg" data-src-small="./bg/images/IMG_0549.jpg" >
+		<img  src="./sm/images/IMG_0549.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0550.jpg" data-src-small="./bg/images/IMG_0550.jpg" >
+		<img  src="./sm/images/IMG_0550.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0551.jpg" data-src-small="./bg/images/IMG_0551.jpg" >
+		<img  src="./sm/images/IMG_0551.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0552.jpg" data-src-small="./bg/images/IMG_0552.jpg" >
+		<img  src="./sm/images/IMG_0552.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0553.jpg" data-src-small="./bg/images/IMG_0553.jpg" >
+		<img  src="./sm/images/IMG_0553.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0554.jpg" data-src-small="./bg/images/IMG_0554.jpg" >
+		<img  src="./sm/images/IMG_0554.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0555.jpg" data-src-small="./bg/images/IMG_0555.jpg" >
+		<img  src="./sm/images/IMG_0555.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0556.jpg" data-src-small="./bg/images/IMG_0556.jpg" >
+		<img  src="./sm/images/IMG_0556.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0557.jpg" data-src-small="./bg/images/IMG_0557.jpg" >
+		<img  src="./sm/images/IMG_0557.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0558.jpg" data-src-small="./bg/images/IMG_0558.jpg" >
+		<img  src="./sm/images/IMG_0558.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_0559.jpg" data-src-small="./bg/images/IMG_0559.jpg" >
+		<img  src="./sm/images/IMG_0559.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203508.jpg" data-src-small="./bg/images/IMG_20130405_203508.jpg" >
+		<img  src="./sm/images/IMG_20130405_203508.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">@王臻 李铭 杨春</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@张燕 & ...</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203519.jpg" data-src-small="./bg/images/IMG_20130405_203519.jpg" >
+		<img  src="./sm/images/IMG_20130405_203519.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈佳莉 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203530.jpg" data-src-small="./bg/images/IMG_20130405_203530.jpg" >
+		<img  src="./sm/images/IMG_20130405_203530.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 & ...</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203536.jpg" data-src-small="./bg/images/IMG_20130405_203536.jpg" >
+		<img  src="./sm/images/IMG_20130405_203536.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 学妹</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203540.jpg" data-src-small="./bg/images/IMG_20130405_203540.jpg" >
+		<img  src="./sm/images/IMG_20130405_203540.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王臻</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203549.jpg" data-src-small="./bg/images/IMG_20130405_203549.jpg" >
+		<img  src="./sm/images/IMG_20130405_203549.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203606.jpg" data-src-small="./bg/images/IMG_20130405_203606.jpg" >
+		<img  src="./sm/images/IMG_20130405_203606.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈佳莉 张燕</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203619.jpg" data-src-small="./bg/images/IMG_20130405_203619.jpg" >
+		<img  src="./sm/images/IMG_20130405_203619.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@杨春</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203701.jpg" data-src-small="./bg/images/IMG_20130405_203701.jpg" >
+		<img  src="./sm/images/IMG_20130405_203701.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@王星友 李铭 杨春 </h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203948.jpg" data-src-small="./bg/images/IMG_20130405_203948.jpg" >
+		<img  src="./sm/images/IMG_20130405_203948.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 李铭</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_203953.jpg" data-src-small="./bg/images/IMG_20130405_203953.jpg" >
+		<img  src="./sm/images/IMG_20130405_203953.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@魏立勇 李铭</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/IMG_20130405_204731.jpg" data-src-small="./bg/images/IMG_20130405_204731.jpg" >
+		<img  src="./sm/images/IMG_20130405_204731.jpg" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">面...</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 学妹</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/utsing2.gif" data-src-small="./bg/images/utsing2.gif" >
+		<img  src="./sm/images/utsing2.gif" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow">电玩中</h1></div>
+			 <div> <h1 class="title_light light_color text_shadow">@陈汉青 魏立勇</h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/utsing3.gif" data-src-small="./bg/images/utsing3.gif" >
+		<img  src="./sm/images/utsing3.gif" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow"></h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/utsing4.gif" data-src-small="./bg/images/utsing4.gif" >
+		<img  src="./sm/images/utsing4.gif" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow"></h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/utsing5.gif" data-src-small="./bg/images/utsing5.gif" >
+		<img  src="./sm/images/utsing5.gif" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow"></h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/utsing6.gif" data-src-small="./bg/images/utsing6.gif" >
+		<img  src="./sm/images/utsing6.gif" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow"></h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/utsing7.gif" data-src-small="./bg/images/utsing7.gif" >
+		<img  src="./sm/images/utsing7.gif" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow"></h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+<div class="fsThumb" data-src="./bg/images/utsing8.gif" data-src-small="./bg/images/utsing8.gif" >
+		<img  src="./sm/images/utsing8.gif" class="fsThumb-scale" alt="Wonder" />
+		 <div class="fs_caption caption_style4"> 
+			 <div> <h1 class="large_font title_light light_color text_shadow"></h1></div>
+			 <div> <h1 class="title_light light_color text_shadow"></h1></div>
+		 </div>
+</div>
+
+                        
+            		</div>
+                </div>
+
+              </div>   
+         	</div>
+            
+		</div>
+    </div>
+</div>
+
+
+
+
+<!-- Home page -->
+                
+<div class="page" data-id="home" >
+    <div class="pgContent">
+                     
+        
+		<div class="animate" data-time="0" >
+			<div class="fifteen columns alpha">
+            	<div class="mobile_spacing" >
+					<h1 class="title_light" >我们是北语信科吃喝玩乐组</h1>
+				</div>  
+			</div>
+		</div>
+            
+                      
+        <div class="separator_mini"></div>    
+            
+        <div class="add_scroll medium_size">       
+        <!-- Below content are placed inside the Scrollbar -->
+                          
+            <div class="fifteen columns alpha animate2"  data-time="1" >
+                <div class="mobile_spacing">
+                    <p>吃喝玩乐，北语信科。</p>
+                    <p><a href="./2013-4-4.ZIP">2013年4月清明游玩照片压缩下载</a></p>
+                </div>
+            </div>
+
+            
+            <div class="fifteen columns alpha" >
+                <div class="mobile_spacing" >
+                
+					<ul class="feature_wrap" >
+						
+                        	<li>
+                            	<div class="fea"> 
+                                    <a class="hastip" title="骑行去海淀公园" href="#fullscreen_gallery" >
+                                        <div class="fea_caption ">骑行</div>	
+                                        <span class="img_holder"> <img src="images/feature1.jpg" /> </span>
+                                    </a> 
+                            	</div>
+                            </li>
+                        
+                        
+							<li>
+                            	<div class="fea"> 
+                                	<a class="hastip" title="吃吃吃，我们都是吃货"  href="#fullscreen_gallery" >
+                                        <div class="fea_caption ">吃饭</div>	
+                                        <span class="img_holder"> <img src="images/feature2.jpg" /> </span> 
+                                    </a>
+                                </div>
+                            </li>
+                            
+                            <li>
+                            	<div class="fea"> 
+                                	<a class="hastip" title="北大西门电玩城"  href="#fullscreen_gallery" >
+                                        <div class="fea_caption ">电玩</div>	
+                                        <span class="img_holder"> <img src="images/feature3.jpg" /> </span> 
+                                    </a>
+                                </div>
+                            </li>
+                            
+                             <li class="last">
+                            	<div class="fea"> 
+                                	<a class="hastip" title="KTV画乌龟游戏"  href="#fullscreen_gallery" >
+                                        <div class="fea_caption ">游戏</div>	
+                                        <span class="img_holder"> <img src="images/feature4.jpg" /> </span> 
+                                    </a>
+                                </div>
+                            </li>
+                           
+					</ul>
+                </div>
+			</div>
+                
+            <!-- End Scrollbar -->
+                                 
+        </div>
+        
+                       
+    </div>
+</div>
+
+<!-- End Home page -->                 
+  
+  
+  
+  
+            	
+<!-- About US page -->
+                
+<div class="page" data-id="aboutus" >
+
+</div>
+
+<!-- End About US page -->
+
+
+
+
+
+<!-- Portfolio page -->
+                
+<div class="page" data-id="portfolio" >                	
+                   
+</div>
+
+<!-- End Portfolio page -->
+                
+                
+
+
+<!-- Slide show page -->
+                
+<div class="page" data-id="slideshow" >
+  
+</div>
+
+<!-- End Slide show page -->
+
+
+
+
+<!-- Blog page -->
+                
+<div class="page" data-id="blog" data-height-fixed="false">
+  
+</div>
+              
+                
+
+                
+<!-- Features page -->
+                
+<div class="page" data-id="features" data-height-fixed="false" >
+   
+</div>
+
+<!-- End Features page -->
+                
+                
+
+                
+<!-- Contact Us page -->
+            
+<div class="page" data-id="contactus">
+    
+</div>
+
+<!-- End Contact Us page -->
+<!--
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+-->
+</body>
+</html>
